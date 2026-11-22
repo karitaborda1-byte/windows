@@ -1,0 +1,40 @@
+WINDOW EN UN SITIO WEB (todos entran con un enlace, sin red local)
+
+IDEA: WINDOW es un servidor Python. Hay que alojarlo en un servicio que ejecute
+Python (no sirve un hosting que solo guarda paginas estaticas).
+Ejemplo con Render (https://render.com). Railway, Fly.io o PythonAnywhere
+funcionan con la misma idea. Revisa sus planes y precios actuales.
+
+PASOS (Render)
+1. Crea una cuenta en https://github.com y un repositorio PRIVADO nuevo.
+2. Sube a ese repositorio TODOS los archivos de esta carpeta
+   (server.py, index.html, render.yaml, requirements.txt, .gitignore).
+   Boton "Add file > Upload files" y arrastra los archivos.
+3. En https://render.com elige New > Web Service y conecta el repositorio.
+   (o New > Blueprint, que lee render.yaml)
+   - Runtime: Python 3
+   - Build Command: echo ok
+   - Start Command: python server.py
+4. En Environment agrega la variable:
+   GROQ_API_KEY = tu clave gsk_... de https://console.groq.com/keys
+   (Opcional) GROQ_MODEL = openai/gpt-oss-120b
+   (Opcional) RATE_LIMIT = preguntas por minuto permitidas por IP (def. 20)
+5. Despliega. Render te da un enlace https://window-xxxx.onrender.com
+   Ese enlace es el que abren todos los computadores. Ya no hace falta
+   Conectar_a_WINDOW.bat ni Iniciar_WINDOW.bat.
+
+NOTAS IMPORTANTES
+- La clave NO se pega en la pagina: en la web se configura solo con la variable
+  GROQ_API_KEY. Nunca la subas a GitHub dentro de un archivo.
+- En la web el sitio usa HTTPS, asi que la camara (tocar el rostro) funciona en
+  todos los computadores.
+- Los planes gratuitos suelen "dormir" el servicio tras un rato sin visitas y
+  tardan casi un minuto en despertar. Para la exposicion, abre el enlace unos
+  minutos antes o usa un plan que no duerma.
+- El disco de muchos planes gratuitos es temporal: el contador y los temas
+  (memoria_colectiva.json) pueden reiniciarse al redeplegar. El historial
+  reciente vive en la RAM y tambien se pierde al reiniciar.
+- Cualquiera con el enlace puede conversar y gastar tu cuota de Groq. Por eso
+  hay un limite por IP (RATE_LIMIT). No compartas el enlace publicamente si no
+  quieres visitas ajenas. Muchos equipos tras el mismo wifi comparten una IP:
+  si se bloquean entre si, sube RATE_LIMIT.

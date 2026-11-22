@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: window
+    runtime: python
+    buildCommand: "echo ok"
+    startCommand: "python server.py"
+    healthCheckPath: /api/health
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
